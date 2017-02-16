@@ -15,13 +15,12 @@ function init(){
     addListeners();
 }
 
+//assign source and name to array of images
 function createImages(){
-    //create images
     for(var i=0; i<16; i++){
         mushrooms[i] = new Image();
     }
 
-    //assign source and name to images
     mushrooms[0].src = 'pic/1.jpg';
     mushrooms[0].name = 'Cantharellus cibarius';
     mushrooms[1].src = 'pic/2.jpg';
@@ -56,12 +55,14 @@ function createImages(){
     mushrooms[15].name='Ganoderma lucidum';
 }
 
+//shuffle order of images within the array
 function shuffle(o) {
     for(var j, x, i = o.length; i; j = parseInt(Math.random() * i),
         x = o[--i], o[i] = o[j], o[j] = x);
     return o;
 };
 
+//create grid with six images
 function generateGrid(){
     for(var i=0; i<6; i++){
         document.getElementById(i).appendChild(mushrooms[i])
@@ -70,21 +71,19 @@ function generateGrid(){
         .setAttribute("width", "200");
         console.log(mushrooms[i].name);
     }
-
+    //randomly select one of the six as the answer to be guessed
     answer = mushrooms[Math.floor(Math.random() * 6)].name;
     document.getElementById("answer").innerHTML = answer;
 }
 
+//add click listeners and compare selection with answer
 function addListeners(){
-    // console.log(document.getElementById("answer").firstChild.textContent);
     for(var i=0; i<6; i++){
             squares[i].addEventListener("click",function(){
                 if(this.firstChild.name ==
                  document.getElementById("answer").firstChild.textContent){
                     messageDisplay.textContent = "You Got It!";
                     resetButton.textContent = "Play Again?";
-                    // console.log(this.firstChild);
-                    // this.style.border = "12px solid red";
 
                 } else {
                     messageDisplay.textContent = "Try Again";
@@ -94,12 +93,11 @@ function addListeners(){
     }
 }
 
+//reset the grid
 resetButton.addEventListener("click", function(){
     for(var i=0; i<6; i++){
         document.getElementById(i).removeChild(mushrooms[i]);
         squares[i].style.opacity = 1;
-        // document.getElementsByClassName(smile).textContent = "";
-        // squares[i].style.border = none;
     }
     resetButton.textContent = "New Mushrooms";
     messageDisplay.textContent = "";
